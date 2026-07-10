@@ -1,4 +1,4 @@
--- Migration: Create Initial Schema for Açougue Gourmet
+-- Migration: Create Initial Schema for Zé da Carne
 -- Created At: 2026-07-10
 
 -- -----------------------------------------------------------------------------

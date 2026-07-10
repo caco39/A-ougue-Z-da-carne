@@ -8,8 +8,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Açougue Gourmet & PDV",
-  description: "Sistema integrado de Ponto de Venda (PDV), controle de estoque, clientes e contas a pagar.",
+  title: "Zé da Carne - PDV & Gestão",
+  description: "Sistema integrado de Ponto de Venda (PDV), controle de estoque, clientes e contas a pagar para o Açougue Zé da Carne.",
 };
 
 export default function RootLayout({

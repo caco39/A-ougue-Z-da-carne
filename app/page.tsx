@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { 
   LayoutDashboard, ShoppingCart, Beef, Users, FileText, 
@@ -13,6 +14,7 @@ import PdvView from "../components/pdv-view";
 import ProductsView from "../components/products-view";
 import CustomersView from "../components/customers-view";
 import ContasPagarView from "../components/contas-pagar-view";
+import logoImg from "@/src/assets/images/ze_da_carne_logo_1783698673060.jpg";
 
 export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
@@ -92,12 +94,19 @@ export default function Home() {
               className="w-full max-w-md bg-stone-900 border border-stone-800 p-8 rounded-3xl shadow-2xl relative z-10 space-y-6"
             >
               {/* Logo / Header */}
-              <div className="text-center space-y-2">
-                <div className="mx-auto w-12 h-12 bg-rose-950 border border-rose-900 rounded-2xl flex items-center justify-center text-rose-400">
-                  <Beef className="h-6 w-6" />
+              <div className="text-center space-y-3">
+                <div className="mx-auto w-24 h-24 bg-stone-950 border border-stone-800 rounded-2xl overflow-hidden flex items-center justify-center relative shadow-inner">
+                  <Image
+                    src={logoImg}
+                    alt="Zé da Carne"
+                    fill
+                    sizes="96px"
+                    className="object-cover"
+                    referrerPolicy="no-referrer"
+                  />
                 </div>
-                <h1 className="text-2xl font-extrabold tracking-tight text-stone-100">
-                  Açougue Gourmet
+                <h1 className="text-2xl font-black tracking-tight text-stone-100 uppercase">
+                  Zé da Carne
                 </h1>
                 <p className="text-stone-500 text-xs">
                   Acesse sua conta para gerenciar o PDV e as finanças.
@@ -183,14 +192,21 @@ export default function Home() {
           >
             {/* Sidebar (Desktop) */}
             <aside id="sidebar" className="hidden md:flex flex-col w-64 bg-stone-900 border-r border-stone-800 p-5 space-y-6 h-full select-none">
-              {/* Brand Header */}
+               {/* Brand Header */}
               <div className="flex items-center space-x-3 pb-4 border-b border-stone-850">
-                <div className="w-10 h-10 bg-rose-900 border border-rose-800 rounded-xl flex items-center justify-center text-rose-100">
-                  <Beef className="h-5 w-5" />
+                <div className="w-12 h-12 bg-stone-950 border border-stone-850 rounded-xl overflow-hidden flex items-center justify-center relative shrink-0">
+                  <Image
+                    src={logoImg}
+                    alt="Zé da Carne"
+                    fill
+                    sizes="48px"
+                    className="object-cover"
+                    referrerPolicy="no-referrer"
+                  />
                 </div>
                 <div>
-                  <h2 className="font-extrabold text-sm text-stone-100 tracking-tight leading-tight">
-                    Açougue Gourmet
+                  <h2 className="font-extrabold text-sm text-stone-100 tracking-tight leading-tight uppercase">
+                    Zé da Carne
                   </h2>
                   <span className="text-[10px] text-emerald-400 font-medium flex items-center">
                     <Sparkles className="h-2.5 w-2.5 mr-0.5" /> Supabase Conectado
@@ -244,12 +260,19 @@ export default function Home() {
 
             {/* Topbar (Mobile) */}
             <header className="md:hidden bg-stone-900 border-b border-stone-800 p-4 flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-rose-900 rounded-lg flex items-center justify-center text-rose-100">
-                  <Beef className="h-4 w-4" />
+              <div className="flex items-center space-x-2.5">
+                <div className="w-10 h-10 bg-stone-950 border border-stone-850 rounded-lg overflow-hidden flex items-center justify-center relative shrink-0">
+                  <Image
+                    src={logoImg}
+                    alt="Zé da Carne"
+                    fill
+                    sizes="40px"
+                    className="object-cover"
+                    referrerPolicy="no-referrer"
+                  />
                 </div>
-                <h2 className="font-extrabold text-xs text-stone-100 tracking-tight">
-                  Açougue Gourmet
+                <h2 className="font-extrabold text-sm text-stone-100 tracking-tight leading-tight uppercase">
+                  Zé da Carne
                 </h2>
               </div>
 

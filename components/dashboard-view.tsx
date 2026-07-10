@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { TrendingUp, Users, AlertTriangle, FileText, ShoppingBag, ArrowUpRight, CheckCircle, Calendar } from "lucide-react";
 import { Product, Customer, ContaPagar, Sale, db } from "../lib/db";
+import logoImg from "@/src/assets/images/ze_da_carne_logo_1783698673060.jpg";
 
 interface DashboardProps {
   onNavigate: (tab: string) => void;
@@ -68,18 +70,28 @@ export default function DashboardView({ onNavigate }: DashboardProps) {
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative overflow-hidden bg-gradient-to-r from-stone-900 to-rose-950 p-8 rounded-2xl border border-stone-800 shadow-xl"
+        className="relative overflow-hidden bg-gradient-to-r from-stone-900 to-rose-950 p-8 rounded-2xl border border-stone-800 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6"
       >
-        <div className="relative z-10 max-w-xl">
+        <div className="relative z-10 max-w-xl space-y-3">
           <span className="text-xs font-semibold uppercase tracking-wider text-rose-400 bg-rose-950/80 px-3 py-1 rounded-full border border-rose-900/50">
             Painel de Controle
           </span>
-          <h1 className="text-3xl font-bold text-stone-100 tracking-tight mt-3">
-            Açougue Gourmet
+          <h1 className="text-4xl font-black text-stone-100 tracking-tight uppercase">
+            Zé da Carne
           </h1>
-          <p className="text-stone-400 text-sm mt-2 leading-relaxed">
+          <p className="text-stone-400 text-sm leading-relaxed">
             Bem-vindo ao seu painel de gestão integrada. Acompanhe suas vendas em tempo real, gerencie o estoque, clientes e controle suas contas a pagar de forma automatizada e integrada ao Supabase.
           </p>
+        </div>
+        <div className="relative z-10 w-24 h-24 md:w-32 md:h-32 bg-stone-950 border border-stone-850 rounded-3xl overflow-hidden shadow-2xl flex-shrink-0">
+          <Image
+            src={logoImg}
+            alt="Zé da Carne"
+            fill
+            sizes="(max-width: 768px) 96px, 128px"
+            className="object-cover"
+            referrerPolicy="no-referrer"
+          />
         </div>
         <div className="absolute top-0 right-0 w-80 h-full bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-rose-900/15 via-stone-900/0 to-stone-900/0 pointer-events-none" />
       </motion.div>
