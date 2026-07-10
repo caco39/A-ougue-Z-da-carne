@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { 
   Search, ShoppingCart, Trash2, Plus, Minus, User, CreditCard, 
-  Check, Ticket, CircleDot, AlertCircle, ShoppingBag, Coins
+  Check, Ticket, CircleDot, AlertCircle, ShoppingBag, Coins,
+  Maximize, Minimize
 } from "lucide-react";
 import { Product, Customer, db } from "../lib/db";
 
@@ -13,6 +14,29 @@ export default function PdvView() {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Todos");
+  
+  // Fullscreen state
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
+  }, []);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch((err) => {
+        console.error(`Erro ao ativar tela cheia: ${err.message}`);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  };
   
   // Cart state
   interface CartItem {
@@ -211,15 +235,15 @@ export default function PdvView() {
       {/* LEFT: Product Grid & Category Filters (7 cols) */}
       <div className="lg:col-span-7 space-y-6">
         {/* Header and Scanner bar */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-stone-900 p-5 rounded-2xl border border-stone-800">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-stone-200 shadow-sm">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-stone-500" />
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-stone-400" />
             <input 
               type="text" 
               placeholder="Buscar por nome ou código..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-stone-950 border border-stone-800 focus:border-rose-950 focus:ring-1 focus:ring-rose-950 rounded-xl pl-10 pr-4 py-2 text-sm text-stone-300 placeholder-stone-600 transition-all"
+              className="w-full bg-stone-50 border border-stone-200 focus:border-stone-400 focus:ring-1 focus:ring-stone-400 rounded-xl pl-10 pr-4 py-2 text-sm text-stone-800 placeholder-stone-400 transition-all outline-none"
             />
           </div>
           
@@ -229,15 +253,25 @@ export default function PdvView() {
               placeholder="Código de Barras..." 
               value={barcodeInput}
               onChange={(e) => setBarcodeInput(e.target.value)}
-              className="bg-stone-950 border border-stone-800 focus:border-rose-950 focus:ring-1 focus:ring-rose-950 rounded-xl px-3 py-2 text-sm font-mono text-rose-400 placeholder-stone-600 w-44"
+              className="bg-stone-50 border border-stone-200 focus:border-stone-400 focus:ring-1 focus:ring-stone-400 rounded-xl px-3 py-2 text-sm font-mono text-rose-600 placeholder-stone-400 w-44 outline-none"
             />
             <button 
               type="submit" 
-              className="bg-rose-900 hover:bg-rose-850 border border-rose-800/40 text-stone-100 px-4 py-2 rounded-xl text-sm font-semibold transition-all"
+              className="bg-rose-700 hover:bg-rose-800 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-all shadow-sm"
             >
               Adicionar
             </button>
           </form>
+
+          {/* Botão Fullscreen */}
+          <button 
+            type="button"
+            onClick={toggleFullscreen}
+            className="flex items-center justify-center p-2.5 bg-stone-50 hover:bg-stone-150 border border-stone-200 text-stone-600 hover:text-stone-900 rounded-xl transition-all shadow-sm"
+            title={isFullscreen ? "Sair da Tela Cheia" : "Tela Cheia"}
+          >
+            {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
+          </button>
         </div>
 
         {/* Categories Scroller */}
@@ -248,8 +282,8 @@ export default function PdvView() {
               onClick={() => setSelectedCategory(cat)}
               className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border ${
                 selectedCategory === cat 
-                  ? "bg-rose-900 text-stone-100 border-rose-800" 
-                  : "bg-stone-900 text-stone-400 border-stone-850 hover:bg-stone-850"
+                  ? "bg-rose-700 text-white border-rose-600 shadow-sm" 
+                  : "bg-white text-stone-600 border-stone-200 hover:bg-stone-50"
               }`}
             >
               {cat}
@@ -264,29 +298,29 @@ export default function PdvView() {
               whileTap={{ scale: 0.98 }}
               key={p.id}
               onClick={() => addToCart(p)}
-              className={`group cursor-pointer bg-stone-900 p-4 rounded-xl border transition-all duration-200 flex flex-col justify-between h-40 ${
+              className={`group cursor-pointer bg-white p-4 rounded-xl border transition-all duration-200 flex flex-col justify-between h-40 ${
                 p.estoque <= 0 
-                  ? "border-stone-850 opacity-40 hover:opacity-40" 
-                  : "border-stone-800 hover:border-rose-900/40 hover:shadow-lg"
+                  ? "border-stone-100 opacity-40 hover:opacity-40" 
+                  : "border-stone-200 hover:border-rose-300 hover:shadow-md"
               }`}
             >
               <div className="space-y-1">
-                <span className="text-[10px] font-medium text-rose-400 bg-rose-950/20 px-2 py-0.5 rounded-full border border-rose-900/10">
+                <span className="text-[10px] font-medium text-rose-700 bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100">
                   {p.categoria}
                 </span>
-                <h4 className="font-semibold text-sm text-stone-200 line-clamp-2 mt-2 group-hover:text-stone-100">
+                <h4 className="font-bold text-sm text-stone-800 line-clamp-2 mt-2 group-hover:text-stone-900">
                   {p.nome}
                 </h4>
               </div>
 
               <div className="flex items-end justify-between mt-4">
                 <div>
-                  <p className="text-xs text-stone-500 font-mono">Código: {p.codigo_barras}</p>
-                  <p className="text-xs font-semibold text-stone-400 mt-1">Estoque: {p.estoque} {p.unidade}</p>
+                  <p className="text-xs text-stone-400 font-mono">Código: {p.codigo_barras}</p>
+                  <p className="text-xs font-semibold text-stone-600 mt-1">Estoque: {p.estoque} {p.unidade}</p>
                 </div>
-                <p className="font-bold text-rose-400 text-base">
+                <p className="font-bold text-rose-600 text-base">
                   {p.preco.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
-                  <span className="text-[10px] font-normal text-stone-500">/{p.unidade}</span>
+                  <span className="text-[10px] font-normal text-stone-400">/{p.unidade}</span>
                 </p>
               </div>
             </motion.div>
@@ -301,14 +335,14 @@ export default function PdvView() {
       </div>
 
       {/* RIGHT: Cart, Customer & Checkout panel (5 cols) */}
-      <div className="lg:col-span-5 flex flex-col h-[740px] bg-stone-900 rounded-2xl border border-stone-800 overflow-hidden shadow-xl">
+      <div className="lg:col-span-5 flex flex-col h-[740px] bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-lg">
         {/* Cart Header */}
-        <div className="p-5 border-b border-stone-800 bg-stone-950 flex items-center justify-between">
-          <h3 className="font-bold text-stone-100 flex items-center">
+        <div className="p-5 border-b border-stone-200 bg-stone-50 flex items-center justify-between">
+          <h3 className="font-bold text-stone-900 flex items-center">
             <ShoppingCart className="h-5 w-5 mr-2 text-rose-500" />
             Carrinho de Vendas
           </h3>
-          <span className="text-xs bg-rose-950/40 text-rose-400 px-3 py-1 rounded-full border border-rose-900/20 font-semibold font-mono">
+          <span className="text-xs bg-rose-50 text-rose-700 px-3 py-1 rounded-full border border-rose-100 font-semibold font-mono">
             {cart.reduce((sum, item) => sum + (item.product.unidade === "kg" ? 1 : item.quantity), 0)} Itens
           </span>
         </div>
@@ -325,41 +359,41 @@ export default function PdvView() {
             cart.map((item) => (
               <div 
                 key={item.product.id} 
-                className="flex items-center justify-between p-3.5 bg-stone-950 rounded-xl border border-stone-850"
+                className="flex items-center justify-between p-3.5 bg-stone-50 rounded-xl border border-stone-200"
               >
                 <div className="flex-1 pr-3">
-                  <h5 className="font-semibold text-sm text-stone-200 line-clamp-1">{item.product.nome}</h5>
-                  <p className="text-xs text-rose-400 font-mono mt-0.5">
+                  <h5 className="font-semibold text-sm text-stone-800 line-clamp-1">{item.product.nome}</h5>
+                  <p className="text-xs text-rose-600 font-mono mt-0.5">
                     {item.product.preco.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}/{item.product.unidade}
                   </p>
                 </div>
 
                 <div className="flex items-center space-x-3.5">
-                  <div className="flex items-center bg-stone-900 border border-stone-800 rounded-lg p-0.5">
+                  <div className="flex items-center bg-white border border-stone-200 rounded-lg p-0.5">
                     <button 
                       onClick={() => updateQuantity(item.product.id, "dec")}
-                      className="p-1 text-stone-400 hover:text-stone-100 hover:bg-stone-800 rounded"
+                      className="p-1 text-stone-500 hover:text-stone-900 hover:bg-stone-100 rounded"
                     >
                       <Minus className="h-3 w-3" />
                     </button>
-                    <span className="px-3.5 text-xs font-bold text-stone-200 font-mono w-14 text-center">
+                    <span className="px-3.5 text-xs font-bold text-stone-800 font-mono w-14 text-center">
                       {item.quantity}
                     </span>
                     <button 
                       onClick={() => updateQuantity(item.product.id, "inc")}
-                      className="p-1 text-stone-400 hover:text-stone-100 hover:bg-stone-800 rounded"
+                      className="p-1 text-stone-500 hover:text-stone-900 hover:bg-stone-100 rounded"
                     >
                       <Plus className="h-3 w-3" />
                     </button>
                   </div>
 
-                  <p className="text-sm font-bold text-stone-200 font-mono w-20 text-right">
+                  <p className="text-sm font-bold text-stone-800 font-mono w-20 text-right">
                     {item.subtotal.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
                   </p>
 
                   <button 
                     onClick={() => removeFromCart(item.product.id)}
-                    className="text-stone-500 hover:text-red-400 p-1.5 rounded-lg hover:bg-red-950/20"
+                    className="text-stone-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50"
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>
@@ -370,17 +404,17 @@ export default function PdvView() {
         </div>
 
         {/* Client Selector & Payments panel */}
-        <div className="p-5 border-t border-stone-800 bg-stone-950/50 space-y-4">
+        <div className="p-5 border-t border-stone-200 bg-stone-50/50 space-y-4">
           <div className="grid grid-cols-2 gap-4">
             {/* Customer select */}
             <div>
-              <label className="block text-xs font-semibold text-stone-500 mb-1.5 flex items-center">
+              <label className="block text-xs font-semibold text-stone-600 mb-1.5 flex items-center">
                 <User className="h-3 w-3 mr-1" /> Cliente
               </label>
               <select
                 value={selectedCustomerId}
                 onChange={(e) => setSelectedCustomerId(e.target.value)}
-                className="w-full text-xs bg-stone-950 border border-stone-850 hover:border-stone-800 rounded-lg p-2 text-stone-300"
+                className="w-full text-xs bg-white border border-stone-200 hover:border-stone-300 rounded-lg p-2 text-stone-800 outline-none"
               >
                 <option value="">Cliente Balcão (Nenhum)</option>
                 {customers.map(c => (
@@ -391,7 +425,7 @@ export default function PdvView() {
 
             {/* Discount field */}
             <div>
-              <label className="block text-xs font-semibold text-stone-500 mb-1.5 flex items-center">
+              <label className="block text-xs font-semibold text-stone-600 mb-1.5 flex items-center">
                 <Ticket className="h-3 w-3 mr-1" /> Desconto (R$)
               </label>
               <input 
@@ -402,14 +436,14 @@ export default function PdvView() {
                 step="0.01"
                 value={discount || ""}
                 onChange={(e) => setDiscount(Math.min(cartSubtotal, parseFloat(e.target.value) || 0))}
-                className="w-full text-xs bg-stone-950 border border-stone-850 hover:border-stone-800 rounded-lg p-2 font-mono text-stone-200"
+                className="w-full text-xs bg-white border border-stone-200 hover:border-stone-300 rounded-lg p-2 font-mono text-stone-800 outline-none"
               />
             </div>
           </div>
 
           {/* Payment options */}
           <div>
-            <label className="block text-xs font-semibold text-stone-500 mb-1.5 flex items-center">
+            <label className="block text-xs font-semibold text-stone-600 mb-1.5 flex items-center">
               <CreditCard className="h-3 w-3 mr-1" /> Forma de Pagamento
             </label>
             <div className="grid grid-cols-4 gap-1.5">
@@ -420,8 +454,8 @@ export default function PdvView() {
                   type="button"
                   className={`py-2 text-[10px] font-bold rounded-lg border transition-all text-center ${
                     paymentMethod === method 
-                      ? "bg-rose-950 text-rose-300 border-rose-900" 
-                      : "bg-stone-950 text-stone-500 border-stone-850 hover:border-stone-800 hover:text-stone-400"
+                      ? "bg-rose-50 text-rose-700 border-rose-200" 
+                      : "bg-white text-stone-500 border-stone-200 hover:bg-stone-50 hover:text-stone-800"
                   }`}
                 >
                   {method === "Cartão de Crédito" ? "C. Crédito" : method === "Cartão de Débito" ? "C. Débito" : method}
@@ -432,21 +466,21 @@ export default function PdvView() {
         </div>
 
         {/* Checkout Button */}
-        <div className="p-5 bg-stone-950 border-t border-stone-800 space-y-4">
+        <div className="p-5 bg-stone-50 border-t border-stone-200 space-y-4">
           <div className="space-y-1.5">
             <div className="flex justify-between text-xs text-stone-500 font-medium">
               <span>Subtotal</span>
               <span className="font-mono">{cartSubtotal.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</span>
             </div>
             {discount > 0 && (
-              <div className="flex justify-between text-xs text-rose-400 font-medium">
+              <div className="flex justify-between text-xs text-rose-600 font-medium">
                 <span>Desconto</span>
                 <span className="font-mono">-{discount.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</span>
               </div>
             )}
             <div className="flex justify-between items-end pt-1">
-              <span className="font-bold text-stone-300 text-sm">Valor Total</span>
-              <span className="font-bold text-stone-100 text-2xl font-mono">
+              <span className="font-bold text-stone-700 text-sm">Valor Total</span>
+              <span className="font-bold text-stone-900 text-2xl font-mono">
                 {cartTotal.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
               </span>
             </div>
@@ -455,10 +489,10 @@ export default function PdvView() {
           <button 
             onClick={handleCheckout}
             disabled={cart.length === 0}
-            className={`w-full py-3.5 rounded-xl font-bold text-sm shadow-lg shadow-rose-900/10 flex items-center justify-center transition-all ${
+            className={`w-full py-3.5 rounded-xl font-bold text-sm shadow-md flex items-center justify-center transition-all ${
               cart.length === 0 
-                ? "bg-stone-850 text-stone-600 border border-stone-800 cursor-not-allowed" 
-                : "bg-rose-900 hover:bg-rose-850 border border-rose-800 text-stone-100"
+                ? "bg-stone-100 text-stone-400 border border-stone-200 cursor-not-allowed shadow-none" 
+                : "bg-rose-700 hover:bg-rose-800 text-white"
             }`}
           >
             <Coins className="h-4.5 w-4.5 mr-2" />

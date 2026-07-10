@@ -35,7 +35,7 @@ export default function Home() {
 
   if (!isMounted) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-stone-950">
+      <div className="flex items-center justify-center min-h-screen bg-stone-50">
         <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-rose-600"></div>
       </div>
     );
@@ -73,7 +73,7 @@ export default function Home() {
   ];
 
   return (
-    <div id="app-root" className="min-h-screen bg-stone-950 text-stone-100 flex flex-col">
+    <div id="app-root" className="min-h-screen bg-stone-50 text-stone-900 flex flex-col">
       <AnimatePresence mode="wait">
         {!isLoggedIn ? (
           /* LOGIN VIEW */
@@ -85,17 +85,17 @@ export default function Home() {
             className="flex-1 flex items-center justify-center p-4 relative overflow-hidden"
           >
             {/* Visual background accents */}
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-rose-900/10 rounded-full blur-[100px] pointer-events-none" />
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-stone-900/40 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-rose-100/30 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-stone-200/50 rounded-full blur-[120px] pointer-events-none" />
 
             <motion.div
               initial={{ scale: 0.95, y: 15 }}
               animate={{ scale: 1, y: 0 }}
-              className="w-full max-w-md bg-stone-900 border border-stone-800 p-8 rounded-3xl shadow-2xl relative z-10 space-y-6"
+              className="w-full max-w-md bg-white border border-stone-200 p-8 rounded-3xl shadow-xl relative z-10 space-y-6"
             >
               {/* Logo / Header */}
               <div className="text-center space-y-3">
-                <div className="mx-auto w-24 h-24 bg-stone-950 border border-stone-800 rounded-2xl overflow-hidden flex items-center justify-center relative shadow-inner">
+                <div className="mx-auto w-24 h-24 bg-stone-100 border border-stone-200 rounded-2xl overflow-hidden flex items-center justify-center relative shadow-inner">
                   <Image
                     src={logoImg}
                     alt="Zé da Carne"
@@ -105,7 +105,7 @@ export default function Home() {
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <h1 className="text-2xl font-black tracking-tight text-stone-100 uppercase">
+                <h1 className="text-2xl font-black tracking-tight text-stone-900 uppercase">
                   Zé da Carne
                 </h1>
                 <p className="text-stone-500 text-xs">
@@ -116,7 +116,7 @@ export default function Home() {
               {/* Login Form */}
               <form onSubmit={handleLoginSubmit} className="space-y-4">
                 {loginError && (
-                  <div className="bg-red-950/45 text-red-300 border border-red-900/30 p-3 rounded-xl text-xs font-semibold flex items-center">
+                  <div className="bg-red-50 text-red-600 border border-red-200 p-3 rounded-xl text-xs font-semibold flex items-center">
                     <Shield className="h-4 w-4 mr-2" />
                     {loginError}
                   </div>
@@ -133,7 +133,7 @@ export default function Home() {
                       placeholder="Nome de usuário..."
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
-                      className="w-full bg-stone-950 border border-stone-850 focus:border-rose-950 focus:ring-1 focus:ring-rose-950 rounded-xl px-4 py-3 text-sm text-stone-200 placeholder-stone-700 transition-all outline-none"
+                      className="w-full bg-white border border-stone-200 focus:border-stone-400 focus:ring-1 focus:ring-stone-400 rounded-xl px-4 py-3 text-sm text-stone-900 placeholder-stone-400 transition-all outline-none"
                     />
                   </div>
                 </div>
@@ -149,7 +149,7 @@ export default function Home() {
                       placeholder="Sua senha..."
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full bg-stone-950 border border-stone-850 focus:border-rose-950 focus:ring-1 focus:ring-rose-950 rounded-xl px-4 py-3 text-sm text-stone-200 placeholder-stone-700 transition-all outline-none"
+                      className="w-full bg-white border border-stone-200 focus:border-stone-400 focus:ring-1 focus:ring-stone-400 rounded-xl px-4 py-3 text-sm text-stone-900 placeholder-stone-400 transition-all outline-none"
                     />
                   </div>
                 </div>
@@ -157,7 +157,7 @@ export default function Home() {
                 <button
                   type="submit"
                   disabled={loginLoading}
-                  className="w-full py-3.5 bg-rose-900 hover:bg-rose-850 text-stone-100 border border-rose-800 rounded-xl font-bold text-sm tracking-wide shadow-lg shadow-rose-950/25 transition-all flex items-center justify-center"
+                  className="w-full py-3.5 bg-rose-700 hover:bg-rose-800 text-white rounded-xl font-bold text-sm tracking-wide shadow-md hover:shadow-lg transition-all flex items-center justify-center"
                 >
                   {loginLoading ? (
                     <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
@@ -171,12 +171,12 @@ export default function Home() {
               </form>
 
               {/* Quick Helper Credentials */}
-              <div className="bg-stone-950 border border-stone-850 p-3.5 rounded-2xl space-y-1 text-center">
+              <div className="bg-stone-50 border border-stone-200 p-3.5 rounded-2xl space-y-1 text-center">
                 <p className="text-[10px] font-semibold text-stone-500 uppercase tracking-wider flex items-center justify-center">
-                  <Key className="h-3 w-3 mr-1 text-rose-400" /> Credenciais de Demonstração
+                  <Key className="h-3 w-3 mr-1 text-rose-600" /> Credenciais de Demonstração
                 </p>
-                <p className="text-[11px] font-mono text-stone-300">
-                  Usuário: <span className="text-rose-400 font-bold">admin</span> | Senha: <span className="text-rose-400 font-bold">admin</span>
+                <p className="text-[11px] font-mono text-stone-700">
+                  Usuário: <span className="text-rose-600 font-bold">admin</span> | Senha: <span className="text-rose-600 font-bold">admin</span>
                 </p>
               </div>
             </motion.div>
@@ -191,10 +191,10 @@ export default function Home() {
             className="flex-1 flex flex-col md:flex-row h-screen overflow-hidden"
           >
             {/* Sidebar (Desktop) */}
-            <aside id="sidebar" className="hidden md:flex flex-col w-64 bg-stone-900 border-r border-stone-800 p-5 space-y-6 h-full select-none">
+            <aside id="sidebar" className="hidden md:flex flex-col w-64 bg-white border-r border-stone-200 p-5 space-y-6 h-full select-none">
                {/* Brand Header */}
-              <div className="flex items-center space-x-3 pb-4 border-b border-stone-850">
-                <div className="w-12 h-12 bg-stone-950 border border-stone-850 rounded-xl overflow-hidden flex items-center justify-center relative shrink-0">
+              <div className="flex items-center space-x-3 pb-4 border-b border-stone-200">
+                <div className="w-12 h-12 bg-stone-50 border border-stone-200 rounded-xl overflow-hidden flex items-center justify-center relative shrink-0">
                   <Image
                     src={logoImg}
                     alt="Zé da Carne"
@@ -205,10 +205,10 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <h2 className="font-extrabold text-sm text-stone-100 tracking-tight leading-tight uppercase">
+                  <h2 className="font-extrabold text-sm text-stone-900 tracking-tight leading-tight uppercase">
                     Zé da Carne
                   </h2>
-                  <span className="text-[10px] text-emerald-400 font-medium flex items-center">
+                  <span className="text-[10px] text-emerald-600 font-medium flex items-center">
                     <Sparkles className="h-2.5 w-2.5 mr-0.5" /> Supabase Conectado
                   </span>
                 </div>
@@ -225,11 +225,11 @@ export default function Home() {
                       onClick={() => setActiveTab(item.id)}
                       className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all border ${
                         isActive
-                          ? "bg-rose-950/40 text-rose-300 border-rose-900/35 shadow-md"
-                          : "text-stone-400 border-transparent hover:text-stone-200 hover:bg-stone-850/50"
+                          ? "bg-rose-50 text-rose-700 border-rose-100 shadow-sm"
+                          : "text-stone-500 border-transparent hover:text-stone-900 hover:bg-stone-50"
                       }`}
                     >
-                      <IconComponent className={`h-4.5 w-4.5 ${isActive ? "text-rose-400" : "text-stone-500"}`} />
+                      <IconComponent className={`h-4.5 w-4.5 ${isActive ? "text-rose-600" : "text-stone-400"}`} />
                       <span>{item.label}</span>
                     </button>
                   );
@@ -237,20 +237,20 @@ export default function Home() {
               </nav>
 
               {/* Sidebar Footer / User Profile & Logout */}
-              <div className="pt-4 border-t border-stone-850 space-y-3">
+              <div className="pt-4 border-t border-stone-200 space-y-3">
                 <div className="flex items-center space-x-3 px-2">
-                  <div className="w-8 h-8 bg-stone-950 rounded-full border border-stone-800 flex items-center justify-center font-bold text-xs text-rose-400 font-mono">
+                  <div className="w-8 h-8 bg-stone-100 rounded-full border border-stone-200 flex items-center justify-center font-bold text-xs text-rose-600 font-mono">
                     AD
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-bold text-stone-200 truncate">Administrador</p>
+                    <p className="text-xs font-bold text-stone-800 truncate">Administrador</p>
                     <p className="text-[9px] text-stone-500 truncate">Sessão Ativa</p>
                   </div>
                 </div>
 
                 <button
                   onClick={handleLogout}
-                  className="w-full flex items-center justify-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-stone-950 border border-stone-850 text-stone-400 hover:text-red-400 hover:border-red-950/30 transition-all hover:bg-red-950/10"
+                  className="w-full flex items-center justify-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-stone-50 border border-stone-200 text-stone-600 hover:text-red-600 hover:border-red-200 transition-all hover:bg-red-50"
                 >
                   <LogOut className="h-3.5 w-3.5" />
                   <span>Sair do Sistema</span>
@@ -259,9 +259,9 @@ export default function Home() {
             </aside>
 
             {/* Topbar (Mobile) */}
-            <header className="md:hidden bg-stone-900 border-b border-stone-800 p-4 flex items-center justify-between">
+            <header className="md:hidden bg-white border-b border-stone-200 p-4 flex items-center justify-between">
               <div className="flex items-center space-x-2.5">
-                <div className="w-10 h-10 bg-stone-950 border border-stone-850 rounded-lg overflow-hidden flex items-center justify-center relative shrink-0">
+                <div className="w-10 h-10 bg-stone-50 border border-stone-200 rounded-lg overflow-hidden flex items-center justify-center relative shrink-0">
                   <Image
                     src={logoImg}
                     alt="Zé da Carne"
@@ -271,14 +271,14 @@ export default function Home() {
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <h2 className="font-extrabold text-sm text-stone-100 tracking-tight leading-tight uppercase">
+                <h2 className="font-extrabold text-sm text-stone-900 tracking-tight leading-tight uppercase">
                   Zé da Carne
                 </h2>
               </div>
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-1.5 bg-stone-950 border border-stone-850 rounded-lg text-stone-400"
+                className="p-1.5 bg-stone-50 border border-stone-200 rounded-lg text-stone-600"
               >
                 {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </button>
@@ -291,7 +291,7 @@ export default function Home() {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="md:hidden bg-stone-900 border-b border-stone-800 px-4 py-3 space-y-1 relative z-25"
+                  className="md:hidden bg-white border-b border-stone-200 px-4 py-3 space-y-1 relative z-25"
                 >
                   {navItems.map((item) => {
                     const IconComponent = item.icon;
@@ -305,8 +305,8 @@ export default function Home() {
                         }}
                         className={`w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${
                           isActive
-                            ? "bg-rose-950/45 text-rose-300"
-                            : "text-stone-400 hover:bg-stone-850/50"
+                            ? "bg-rose-50 text-rose-700"
+                            : "text-stone-500 hover:bg-stone-100"
                         }`}
                       >
                         <IconComponent className="h-4.5 w-4.5" />
@@ -316,7 +316,7 @@ export default function Home() {
                   })}
                   <button
                     onClick={handleLogout}
-                    className="w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-red-400 hover:bg-red-950/20"
+                    className="w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-red-600 hover:bg-red-50"
                   >
                     <LogOut className="h-4.5 w-4.5" />
                     <span>Sair do Sistema</span>
