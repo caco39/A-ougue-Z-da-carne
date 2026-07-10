@@ -1,0 +1,8 @@
+{
+  "name": "Açougue & PDV",
+  "description": "Sistema de gestão e ponto de venda para açougue com controle de estoque, clientes e contas a pagar.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
