@@ -31,6 +31,32 @@ export default function ProductsView() {
   const categories = ["Todos", "Carnes Bovinas", "Carnes Suínas", "Aves", "Linguiças & Embutidos", "Bebidas & Outros"];
   const formCategories = ["Carnes Bovinas", "Carnes Suínas", "Aves", "Linguiças & Embutidos", "Bebidas & Outros"];
 
+  // Unit Options
+  const unitOptions = [
+    { value: "kg", label: "Quilo (kg)" },
+    { value: "un", label: "Unidade (un)" },
+    { value: "g", label: "Grama (g)" },
+    { value: "l", label: "Litro (l)" },
+    { value: "ml", label: "Mililitro (ml)" },
+    { value: "pct", label: "Pacote (pct)" },
+    { value: "cx", label: "Caixa (cx)" },
+    { value: "fdo", label: "Fardo (fdo)" }
+  ];
+
+  const getUnitLabel = (u: string) => {
+    switch (u) {
+      case "kg": return "Quilo (kg)";
+      case "un": return "Unidade (un)";
+      case "g": return "Grama (g)";
+      case "l": return "Litro (l)";
+      case "ml": return "Mililitro (ml)";
+      case "pct": return "Pacote (pct)";
+      case "cx": return "Caixa (cx)";
+      case "fdo": return "Fardo (fdo)";
+      default: return u;
+    }
+  };
+
   useEffect(() => {
     loadProducts();
   }, []);
@@ -140,7 +166,7 @@ export default function ProductsView() {
   });
 
   return (
-    <div id="products-view" className="space-y-6">
+    <div id="products-view" className="space-y-6 text-stone-900">
       {/* Toast notifications */}
       <AnimatePresence>
         {successMsg && (
@@ -148,9 +174,9 @@ export default function ProductsView() {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
-            className="fixed top-6 right-6 z-50 bg-rose-950/95 text-rose-300 border border-rose-900 px-4 py-3 rounded-xl shadow-2xl flex items-center"
+            className="fixed top-6 right-6 z-50 bg-emerald-50 text-emerald-800 border border-emerald-200 px-4 py-3 rounded-xl shadow-2xl flex items-center"
           >
-            <Check className="h-5 w-5 mr-2" />
+            <Check className="h-5 w-5 mr-2 text-emerald-600" />
             <span className="text-sm font-semibold">{successMsg}</span>
           </motion.div>
         )}
@@ -159,30 +185,30 @@ export default function ProductsView() {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
-            className="fixed top-6 right-6 z-50 bg-red-950/90 text-red-300 border border-red-900 px-4 py-3 rounded-xl shadow-2xl flex items-center"
+            className="fixed top-6 right-6 z-50 bg-red-50 text-red-800 border border-red-200 px-4 py-3 rounded-xl shadow-2xl flex items-center"
           >
-            <AlertTriangle className="h-5 w-5 mr-2" />
+            <AlertTriangle className="h-5 w-5 mr-2 text-red-600" />
             <span className="text-sm font-semibold">{errorMsg}</span>
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* Header and Control row */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-stone-900 p-5 rounded-2xl border border-stone-800 shadow-md">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-stone-200 shadow-sm">
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-stone-500" />
+          <Search className="absolute left-3 top-2.5 h-4 w-4 text-stone-400" />
           <input 
             type="text" 
             placeholder="Buscar por nome ou código..." 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-stone-950 border border-stone-800 focus:border-rose-950 focus:ring-1 focus:ring-rose-950 rounded-xl pl-10 pr-4 py-2.5 text-sm text-stone-300 placeholder-stone-600 transition-all"
+            className="w-full bg-stone-50 border border-stone-200 focus:border-stone-400 focus:ring-1 focus:ring-stone-400 rounded-xl pl-10 pr-4 py-2.5 text-sm text-stone-800 placeholder-stone-400 transition-all outline-none"
           />
         </div>
 
         <button 
           onClick={handleOpenAdd}
-          className="bg-rose-900 hover:bg-rose-850 border border-rose-800/40 text-stone-100 font-bold px-5 py-2.5 rounded-xl text-sm flex items-center justify-center transition-all shadow-md shadow-rose-950/25"
+          className="bg-rose-700 hover:bg-rose-800 text-white font-bold px-5 py-2.5 rounded-xl text-sm flex items-center justify-center transition-all shadow-md hover:shadow-lg"
         >
           <Plus className="h-4 w-4 mr-2" />
           Cadastrar Produto
@@ -197,8 +223,8 @@ export default function ProductsView() {
             onClick={() => setSelectedCategory(cat)}
             className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border ${
               selectedCategory === cat 
-                ? "bg-rose-900 text-stone-100 border-rose-800" 
-                : "bg-stone-900 text-stone-400 border-stone-850 hover:bg-stone-850"
+                ? "bg-rose-700 text-white border-rose-600 shadow-sm" 
+                : "bg-white text-stone-600 border-stone-200 hover:bg-stone-50"
             }`}
           >
             {cat}
@@ -207,7 +233,7 @@ export default function ProductsView() {
       </div>
 
       {/* Main Table card */}
-      <div className="bg-stone-900 rounded-2xl border border-stone-800 overflow-hidden shadow-xl">
+      <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-md">
         {loading ? (
           <div className="text-center py-20">
             <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-rose-600 mx-auto"></div>
@@ -218,9 +244,9 @@ export default function ProductsView() {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-stone-300 text-sm">
+            <table className="w-full text-left text-stone-600 text-sm">
               <thead>
-                <tr className="border-b border-stone-800 bg-stone-950/40 text-stone-400 text-xs font-semibold uppercase tracking-wider">
+                <tr className="border-b border-stone-200 bg-stone-50 text-stone-500 text-xs font-semibold uppercase tracking-wider">
                   <th className="py-4 px-6">Produto</th>
                   <th className="py-4 px-6">Categoria</th>
                   <th className="py-4 px-6">Código Barras</th>
@@ -229,44 +255,44 @@ export default function ProductsView() {
                   <th className="py-4 px-6 text-right">Ações</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-stone-850">
+              <tbody className="divide-y divide-stone-100">
                 {filteredProducts.map((p) => (
-                  <tr key={p.id} className="hover:bg-stone-850/20 transition-colors duration-150">
+                  <tr key={p.id} className="hover:bg-stone-50/50 transition-colors duration-150">
                     <td className="py-4 px-6">
                       <div className="flex items-center space-x-3">
-                        <div className="p-2.5 rounded-xl bg-rose-950/20 text-rose-400 border border-rose-900/15">
+                        <div className="p-2.5 rounded-xl bg-rose-50 text-rose-700 border border-rose-100">
                           <Package className="h-5 w-5" />
                         </div>
                         <div>
-                          <p className="font-bold text-stone-100">{p.nome}</p>
-                          <p className="text-[10px] text-stone-500 uppercase tracking-wider">{p.unidade === 'kg' ? 'Venda por Quilo' : 'Venda por Unidade'}</p>
+                          <p className="font-bold text-stone-800">{p.nome}</p>
+                          <p className="text-[10px] text-stone-400 uppercase tracking-wider">Venda por {getUnitLabel(p.unidade)}</p>
                         </div>
                       </div>
                     </td>
                     <td className="py-4 px-6">
-                      <span className="text-[11px] font-medium text-stone-300 bg-stone-950 px-3 py-1 rounded-full border border-stone-800">
+                      <span className="text-[11px] font-medium text-stone-700 bg-stone-100 px-3 py-1 rounded-full border border-stone-200">
                         {p.categoria}
                       </span>
                     </td>
-                    <td className="py-4 px-6 font-mono text-stone-400">
+                    <td className="py-4 px-6 font-mono text-stone-500">
                       {p.codigo_barras}
                     </td>
-                    <td className="py-4 px-6 text-right font-bold text-rose-400 font-mono text-base">
+                    <td className="py-4 px-6 text-right font-bold text-rose-600 font-mono text-base">
                       {p.preco.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
                     </td>
                     <td className="py-4 px-6 text-center">
                       <div className="flex flex-col items-center">
                         <span className={`text-sm font-bold font-mono px-2.5 py-0.5 rounded-lg border ${
                           p.estoque <= 0 
-                            ? "bg-red-950/50 text-red-400 border-red-900/30" 
+                            ? "bg-red-50 text-red-600 border-red-200" 
                             : p.estoque <= 10 
-                            ? "bg-amber-950/55 text-amber-400 border-amber-900/35"
-                            : "bg-stone-950 text-stone-200 border-stone-800"
+                            ? "bg-amber-50 text-amber-700 border-amber-200"
+                            : "bg-stone-50 text-stone-800 border-stone-200"
                         }`}>
                           {p.estoque} {p.unidade}
                         </span>
                         {p.estoque <= 10 && (
-                          <span className="text-[9px] font-bold text-amber-500 uppercase mt-1 flex items-center">
+                          <span className="text-[9px] font-bold text-amber-600 uppercase mt-1 flex items-center">
                             <AlertTriangle className="h-2.5 w-2.5 mr-0.5" /> Estoque Baixo
                           </span>
                         )}
@@ -276,13 +302,15 @@ export default function ProductsView() {
                       <div className="flex items-center justify-end space-x-2">
                         <button 
                           onClick={() => handleOpenEdit(p)}
-                          className="p-2 text-stone-400 hover:text-stone-100 rounded-lg hover:bg-stone-850 transition-all border border-transparent hover:border-stone-800"
+                          className="p-2 text-stone-500 hover:text-stone-900 rounded-lg hover:bg-stone-50 transition-all border border-transparent hover:border-stone-200"
+                          title="Editar Produto"
                         >
                           <Edit2 className="h-4 w-4" />
                         </button>
                         <button 
                           onClick={() => handleDelete(p.id, p.nome)}
-                          className="p-2 text-stone-500 hover:text-red-400 rounded-lg hover:bg-red-950/20 transition-all"
+                          className="p-2 text-stone-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-all"
+                          title="Excluir Produto"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
@@ -298,22 +326,22 @@ export default function ProductsView() {
 
       {/* FORM MODAL (ADD / EDIT) */}
       {showModal && (
-        <div id="product-modal" className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div id="product-modal" className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
           <motion.div 
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-stone-900 border border-stone-800 text-stone-200 p-6 rounded-2xl w-full max-w-lg shadow-2xl space-y-6 relative"
+            className="bg-white border border-stone-200 text-stone-800 p-6 rounded-2xl w-full max-w-lg shadow-2xl space-y-6 relative"
           >
             <button 
               onClick={() => setShowModal(false)}
-              className="absolute top-4 right-4 text-stone-500 hover:text-stone-200 p-1.5 rounded-xl hover:bg-stone-850"
+              className="absolute top-4 right-4 text-stone-400 hover:text-stone-700 p-1.5 rounded-xl hover:bg-stone-50"
             >
               <X className="h-5 w-5" />
             </button>
 
             <div>
-              <h3 className="text-xl font-bold text-stone-100 flex items-center">
-                <Tag className="h-5 w-5 mr-2 text-rose-500" />
+              <h3 className="text-xl font-bold text-stone-900 flex items-center">
+                <Tag className="h-5 w-5 mr-2 text-rose-600" />
                 {editingId ? "Editar Produto" : "Cadastrar Novo Produto"}
               </h3>
               <p className="text-stone-500 text-xs mt-1">Preencha os dados do item para inseri-lo ou atualizá-lo no estoque.</p>
@@ -322,7 +350,7 @@ export default function ProductsView() {
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Product name */}
               <div>
-                <label className="block text-xs font-semibold text-stone-400 mb-1.5 flex items-center">
+                <label className="block text-xs font-semibold text-stone-500 mb-1.5 flex items-center">
                   <Package className="h-3 w-3 mr-1" /> Nome do Produto *
                 </label>
                 <input 
@@ -331,20 +359,20 @@ export default function ProductsView() {
                   placeholder="Ex: Alcatra Maturada Angus"
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
-                  className="w-full bg-stone-950 border border-stone-850 focus:border-rose-950 focus:ring-1 focus:ring-rose-950 rounded-xl px-4 py-2.5 text-sm text-stone-200 placeholder-stone-700"
+                  className="w-full bg-stone-50 border border-stone-200 focus:border-stone-400 focus:ring-1 focus:ring-stone-400 rounded-xl px-4 py-2.5 text-sm text-stone-800 placeholder-stone-400 outline-none transition-all"
                 />
               </div>
 
               {/* Category and unit selection */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-stone-400 mb-1.5">
+                  <label className="block text-xs font-semibold text-stone-500 mb-1.5">
                     Categoria *
                   </label>
                   <select
                     value={categoria}
                     onChange={(e) => setCategoria(e.target.value)}
-                    className="w-full bg-stone-950 border border-stone-850 focus:border-rose-950 focus:ring-1 focus:ring-rose-950 rounded-xl px-3 py-2.5 text-sm text-stone-300"
+                    className="w-full bg-stone-50 border border-stone-200 focus:border-stone-400 focus:ring-1 focus:ring-stone-400 rounded-xl px-3 py-2.5 text-sm text-stone-800 outline-none transition-all"
                   >
                     {formCategories.map(cat => (
                       <option key={cat} value={cat}>{cat}</option>
@@ -353,32 +381,25 @@ export default function ProductsView() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-stone-400 mb-1.5 flex items-center">
+                  <label className="block text-xs font-semibold text-stone-500 mb-1.5 flex items-center">
                     <Scale className="h-3 w-3 mr-1" /> Unidade de Venda *
                   </label>
-                  <div className="grid grid-cols-2 gap-2 bg-stone-950 border border-stone-850 rounded-xl p-1">
-                    {(["kg", "un"] as const).map(u => (
-                      <button
-                        key={u}
-                        type="button"
-                        onClick={() => setUnidade(u)}
-                        className={`py-1.5 text-xs font-bold rounded-lg transition-all ${
-                          unidade === u 
-                            ? "bg-rose-950 text-rose-300" 
-                            : "text-stone-500 hover:text-stone-300"
-                        }`}
-                      >
-                        {u === "kg" ? "Quilo (kg)" : "Unidade (un)"}
-                      </button>
+                  <select
+                    value={unidade}
+                    onChange={(e) => setUnidade(e.target.value)}
+                    className="w-full bg-stone-50 border border-stone-200 focus:border-stone-400 focus:ring-1 focus:ring-stone-400 rounded-xl px-3 py-2.5 text-sm text-stone-800 outline-none transition-all"
+                  >
+                    {unitOptions.map(u => (
+                      <option key={u.value} value={u.value}>{u.label}</option>
                     ))}
-                  </div>
+                  </select>
                 </div>
               </div>
 
               {/* Price, stock, barcode */}
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-stone-400 mb-1.5 flex items-center">
+                  <label className="block text-xs font-semibold text-stone-500 mb-1.5 flex items-center">
                     <Coins className="h-3 w-3 mr-1" /> Preço (R$) *
                   </label>
                   <input 
@@ -389,12 +410,12 @@ export default function ProductsView() {
                     placeholder="0,00"
                     value={preco}
                     onChange={(e) => setPreco(e.target.value !== "" ? parseFloat(e.target.value) : "")}
-                    className="w-full bg-stone-950 border border-stone-850 focus:border-rose-950 focus:ring-1 focus:ring-rose-950 rounded-xl px-4 py-2.5 text-sm text-stone-200 font-mono"
+                    className="w-full bg-stone-50 border border-stone-200 focus:border-stone-400 focus:ring-1 focus:ring-stone-400 rounded-xl px-4 py-2.5 text-sm text-stone-800 font-mono outline-none transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-stone-400 mb-1.5">
+                  <label className="block text-xs font-semibold text-stone-500 mb-1.5">
                     Estoque Inicial *
                   </label>
                   <input 
@@ -405,12 +426,12 @@ export default function ProductsView() {
                     placeholder="0.0"
                     value={estoque}
                     onChange={(e) => setEstoque(e.target.value !== "" ? parseFloat(e.target.value) : "")}
-                    className="w-full bg-stone-950 border border-stone-850 focus:border-rose-950 focus:ring-1 focus:ring-rose-950 rounded-xl px-4 py-2.5 text-sm text-stone-200 font-mono"
+                    className="w-full bg-stone-50 border border-stone-200 focus:border-stone-400 focus:ring-1 focus:ring-stone-400 rounded-xl px-4 py-2.5 text-sm text-stone-800 font-mono outline-none transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-stone-400 mb-1.5 flex items-center">
+                  <label className="block text-xs font-semibold text-stone-500 mb-1.5 flex items-center">
                     <Barcode className="h-3 w-3 mr-1" /> Código Barras *
                   </label>
                   <input 
@@ -419,7 +440,7 @@ export default function ProductsView() {
                     placeholder="Código..."
                     value={codigoBarras}
                     onChange={(e) => setCodigoBarras(e.target.value)}
-                    className="w-full bg-stone-950 border border-stone-850 focus:border-rose-950 focus:ring-1 focus:ring-rose-950 rounded-xl px-4 py-2.5 text-sm text-stone-200 font-mono"
+                    className="w-full bg-stone-50 border border-stone-200 focus:border-stone-400 focus:ring-1 focus:ring-stone-400 rounded-xl px-4 py-2.5 text-sm text-stone-800 font-mono outline-none transition-all"
                   />
                 </div>
               </div>
@@ -429,13 +450,13 @@ export default function ProductsView() {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="flex-1 py-2.5 rounded-xl border border-stone-800 text-stone-400 hover:bg-stone-850 hover:text-stone-200 text-sm font-semibold transition-all"
+                  className="flex-1 py-2.5 rounded-xl border border-stone-200 text-stone-500 hover:bg-stone-50 hover:text-stone-700 text-sm font-semibold transition-all"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 bg-rose-900 hover:bg-rose-850 text-stone-100 rounded-xl font-bold text-sm border border-rose-800/55 shadow-lg shadow-rose-950/15 flex items-center justify-center transition-all"
+                  className="flex-1 py-2.5 bg-rose-700 hover:bg-rose-800 text-white rounded-xl font-bold text-sm shadow-md hover:shadow-lg flex items-center justify-center transition-all"
                 >
                   <Save className="h-4 w-4 mr-1.5" />
                   Salvar Produto
