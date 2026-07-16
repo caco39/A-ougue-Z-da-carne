@@ -18,18 +18,18 @@ export default function ProductsView() {
   const [showModal, setShowModal] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [nome, setNome] = useState("");
-  const [categoria, setCategoria] = useState("Carnes Bovinas");
+  const [categoria, setCategoria] = useState("Cervejas");
   const [preco, setPreco] = useState<number | "">("");
   const [estoque, setEstoque] = useState<number | "">("");
   const [codigoBarras, setCodigoBarras] = useState("");
-  const [unidade, setUnidade] = useState("kg");
+  const [unidade, setUnidade] = useState("un");
 
   // Messages
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  const categories = ["Todos", "Carnes Bovinas", "Carnes Suínas", "Aves", "Linguiças & Embutidos", "Bebidas & Outros"];
-  const formCategories = ["Carnes Bovinas", "Carnes Suínas", "Aves", "Linguiças & Embutidos", "Bebidas & Outros"];
+  const categories = ["Todos", "Cervejas", "Destilados", "Vinhos & Espumantes", "Refrigerantes & Sucos", "Águas & Energéticos", "Petiscos & Diversos"];
+  const formCategories = ["Cervejas", "Destilados", "Vinhos & Espumantes", "Refrigerantes & Sucos", "Águas & Energéticos", "Petiscos & Diversos"];
 
   // Unit Options
   const unitOptions = [
@@ -86,11 +86,11 @@ export default function ProductsView() {
   const handleOpenAdd = () => {
     setEditingId(null);
     setNome("");
-    setCategoria("Carnes Bovinas");
+    setCategoria("Cervejas");
     setPreco("");
     setEstoque("");
     setCodigoBarras(Math.floor(10000000 + Math.random() * 90000000).toString()); // random barcode prefix
-    setUnidade("kg");
+    setUnidade("un");
     setShowModal(true);
   };
 

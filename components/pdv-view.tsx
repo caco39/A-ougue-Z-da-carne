@@ -76,7 +76,7 @@ export default function PdvView() {
     return matchesSearch && matchesCategory;
   });
 
-  const categories = ["Todos", "Carnes Bovinas", "Carnes Suínas", "Aves", "Linguiças & Embutidos", "Bebidas & Outros"];
+  const categories = ["Todos", "Cervejas", "Destilados", "Vinhos & Espumantes", "Refrigerantes & Sucos", "Águas & Energéticos", "Petiscos & Diversos"];
 
   // Cart operations
   const addToCart = (product: Product, defaultQty = 1) => {

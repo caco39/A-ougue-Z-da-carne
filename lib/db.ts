@@ -57,18 +57,20 @@ export interface Sale {
 
 // Initial mockup data to populate local storage if not present
 const INITIAL_PRODUCTS: Product[] = [
-  { id: "p1", nome: "Picanha Angus Premium", preco: 89.90, estoque: 25.5, codigo_barras: "78910001", categoria: "Carnes Bovinas", unidade: "kg" },
-  { id: "p2", nome: "Alcatra Maturada", preco: 54.90, estoque: 40.0, codigo_barras: "78910002", categoria: "Carnes Bovinas", unidade: "kg" },
-  { id: "p3", nome: "Contra Filé Grill", preco: 62.90, estoque: 30.0, codigo_barras: "78910003", categoria: "Carnes Bovinas", unidade: "kg" },
-  { id: "p4", nome: "Maminha Selecionada", preco: 48.90, estoque: 18.0, codigo_barras: "78910004", categoria: "Carnes Bovinas", unidade: "kg" },
-  { id: "p5", nome: "Costela Minga", preco: 29.90, estoque: 55.0, codigo_barras: "78910005", categoria: "Carnes Bovinas", unidade: "kg" },
-  { id: "p6", nome: "Costelinha de Porco", preco: 32.90, estoque: 35.0, codigo_barras: "78910006", categoria: "Carnes Suínas", unidade: "kg" },
-  { id: "p7", nome: "Panceta Temperada", preco: 36.90, estoque: 15.0, codigo_barras: "78910007", categoria: "Carnes Suínas", unidade: "kg" },
-  { id: "p8", nome: "Filé de Peito de Frango", preco: 21.90, estoque: 45.0, codigo_barras: "78910008", categoria: "Aves", unidade: "kg" },
-  { id: "p9", nome: "Coxa e Sobrecoxa Desossada", preco: 18.90, estoque: 50.0, codigo_barras: "78910009", categoria: "Aves", unidade: "kg" },
-  { id: "p10", nome: "Linguiça Toscana Caseira", preco: 24.90, estoque: 60.0, codigo_barras: "78910010", categoria: "Linguiças & Embutidos", unidade: "kg" },
-  { id: "p11", nome: "Carvão Vegetal 5kg", preco: 19.90, estoque: 100, codigo_barras: "78910011", categoria: "Bebidas & Outros", unidade: "un" },
-  { id: "p12", nome: "Cerveja Heineken LN 330ml", preco: 7.50, estoque: 240, codigo_barras: "78910012", categoria: "Bebidas & Outros", unidade: "un" }
+  { id: "p1", nome: "Cerveja Heineken LN 330ml", preco: 8.50, estoque: 120, codigo_barras: "78910001", categoria: "Cervejas", unidade: "un" },
+  { id: "p2", nome: "Cerveja Amstel Latão 473ml", preco: 4.20, estoque: 240, codigo_barras: "78910002", categoria: "Cervejas", unidade: "un" },
+  { id: "p3", nome: "Cerveja Corona Extra 330ml", preco: 7.90, estoque: 96, codigo_barras: "78910003", categoria: "Cervejas", unidade: "un" },
+  { id: "p4", nome: "Whisky Johnnie Walker Red Label 1L", preco: 119.90, estoque: 15, codigo_barras: "78910004", categoria: "Destilados", unidade: "un" },
+  { id: "p5", nome: "Vodka Smirnoff 998ml", preco: 42.90, estoque: 24, codigo_barras: "78910005", categoria: "Destilados", unidade: "un" },
+  { id: "p6", nome: "Gin Tanqueray London Dry 750ml", preco: 139.90, estoque: 10, codigo_barras: "78910006", categoria: "Destilados", unidade: "un" },
+  { id: "p7", nome: "Vinho Tinto Casillero del Diablo Cabernet Sauvignon 750ml", preco: 59.90, estoque: 18, codigo_barras: "78910007", categoria: "Vinhos & Espumantes", unidade: "un" },
+  { id: "p8", nome: "Espumante Chandon Réserve Brut 750ml", preco: 98.00, estoque: 12, codigo_barras: "78910008", categoria: "Vinhos & Espumantes", unidade: "un" },
+  { id: "p9", nome: "Refrigerante Coca-Cola Pet 2L", preco: 9.50, estoque: 150, codigo_barras: "78910009", categoria: "Refrigerantes & Sucos", unidade: "un" },
+  { id: "p10", nome: "Suco de Uva Integral Aurora 1L", preco: 15.90, estoque: 40, codigo_barras: "78910010", categoria: "Refrigerantes & Sucos", unidade: "un" },
+  { id: "p11", nome: "Energético Monster Energy 473ml", preco: 10.90, estoque: 80, codigo_barras: "78910011", categoria: "Águas & Energéticos", unidade: "un" },
+  { id: "p12", nome: "Água Mineral Sem Gás Crystal 500ml", preco: 2.50, estoque: 200, codigo_barras: "78910012", categoria: "Águas & Energéticos", unidade: "un" },
+  { id: "p13", nome: "Batata Pringles Cebola e Salsa 114g", preco: 14.90, estoque: 50, codigo_barras: "78910013", categoria: "Petiscos & Diversos", unidade: "un" },
+  { id: "p14", nome: "Amendoim Mendorato Giga 400g", preco: 12.90, estoque: 60, codigo_barras: "78910014", categoria: "Petiscos & Diversos", unidade: "un" }
 ];
 
 const INITIAL_CUSTOMERS: Customer[] = [
@@ -78,10 +80,10 @@ const INITIAL_CUSTOMERS: Customer[] = [
 ];
 
 const INITIAL_CONTAS: ContaPagar[] = [
-  { id: "d1", descricao: "Compra de Gado Angus - Frigorífico Sul", valor: 15000.00, data_vencimento: "2026-07-15", status: "Pendente", categoria: "Mercadoria", observacoes: "Lote de 200kg de Picanha e Alcatra", fornecedor_nome: "Frigorífico Sul Ltda" },
+  { id: "d1", descricao: "Compra de Cervejas e Destilados - Ambev S.A.", valor: 15000.00, data_vencimento: "2026-07-15", status: "Pendente", categoria: "Mercadoria", observacoes: "Lote de packs de cerveja e destilados", fornecedor_nome: "Ambev S.A." },
   { id: "d2", descricao: "Aluguel Comercial - Julho", valor: 3500.00, data_vencimento: "2026-07-10", status: "Pago", data_pagamento: "2026-07-09", categoria: "Infraestrutura", fornecedor_nome: "Imobiliária Central" },
   { id: "d3", descricao: "Energia Elétrica - Copel", valor: 1250.80, data_vencimento: "2026-07-18", status: "Pendente", categoria: "Utilidades", fornecedor_nome: "Copel Distribuidora" },
-  { id: "d4", descricao: "Embalagens plásticas e bandejas", valor: 450.00, data_vencimento: "2026-07-25", status: "Pendente", categoria: "Insumos", fornecedor_nome: "Plásticos Embala+" }
+  { id: "d4", descricao: "Embalagens e copos descartáveis", valor: 450.00, data_vencimento: "2026-07-25", status: "Pendente", categoria: "Insumos", fornecedor_nome: "Plásticos Embala+" }
 ];
 
 const INITIAL_SALES: Sale[] = [
@@ -89,14 +91,14 @@ const INITIAL_SALES: Sale[] = [
     id: "s1",
     cliente_id: "c1",
     cliente_nome: "Carlos Henrique Silva",
-    total: 194.75,
+    total: 38.10,
     forma_pagamento: "Pix",
     data_venda: "2026-07-09T15:30:00.000Z",
     desconto: 5.00,
     itens: [
-      { produto_id: "p1", produto_nome: "Picanha Angus Premium", quantidade: 1.5, preco_unitario: 89.90, subtotal: 134.85 },
-      { produto_id: "p10", produto_nome: "Linguiça Toscana Caseira", quantidade: 2.0, preco_unitario: 24.90, subtotal: 49.80 },
-      { produto_id: "p12", produto_nome: "Cerveja Heineken LN 330ml", quantidade: 2, preco_unitario: 7.50, subtotal: 15.00 }
+      { produto_id: "p1", produto_nome: "Cerveja Heineken LN 330ml", quantidade: 3, preco_unitario: 8.50, subtotal: 25.50 },
+      { produto_id: "p9", produto_nome: "Refrigerante Coca-Cola Pet 2L", quantidade: 1, preco_unitario: 9.50, subtotal: 9.50 },
+      { produto_id: "p12", produto_nome: "Água Mineral Sem Gás Crystal 500ml", quantidade: 3, preco_unitario: 2.70, subtotal: 8.10 }
     ]
   }
 ];

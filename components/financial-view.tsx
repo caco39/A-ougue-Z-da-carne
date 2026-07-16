@@ -60,7 +60,7 @@ export default function FinancialView({ dbRefresh, triggerRefresh, user, showToa
   // --- FORMULÁRIO DE CONTAS ---
   const [accDesc, setAccDesc] = useState('');
   const [accType, setAccType] = useState<'PAGAR' | 'RECEBER'>('PAGAR');
-  const [accCat, setAccCat] = useState('Compra de Carnes');
+  const [accCat, setAccCat] = useState('Compra de Bebidas');
   const [accVal, setAccVal] = useState(0);
   const [accDue, setAccDue] = useState(new Date().toISOString().slice(0, 10));
 
@@ -703,7 +703,7 @@ export default function FinancialView({ dbRefresh, triggerRefresh, user, showToa
                     onChange={(e) => setAccCat(e.target.value)}
                     className="w-full px-3 py-2 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 rounded-xl text-xs focus:outline-none font-bold"
                   >
-                    <option value="Compra de Carnes">Compra de Carnes (Estoque)</option>
+                    <option value="Compra de Bebidas">Compra de Bebidas (Estoque)</option>
                     <option value="Aluguel e Condomínio">Aluguel e Condomínio</option>
                     <option value="Água e Energia">Água e Energia</option>
                     <option value="Salários e Encargos">Salários e Encargos</option>

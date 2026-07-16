@@ -428,7 +428,7 @@ export default function SuppliersEmployeesView({ dbRefresh, triggerRefresh, user
                     value={supRazao}
                     onChange={(e) => setSupRazao(e.target.value)}
                     className="w-full px-3 py-2 border border-slate-200 dark:border-slate-800 rounded-xl bg-slate-50 dark:bg-slate-950 text-xs focus:outline-none"
-                    placeholder="Ex: JBS Distribuidora S/A"
+                    placeholder="Ex: Ambev S.A."
                     required
                   />
                 </div>
@@ -439,7 +439,7 @@ export default function SuppliersEmployeesView({ dbRefresh, triggerRefresh, user
                     value={supFantasia}
                     onChange={(e) => setSupFantasia(e.target.value)}
                     className="w-full px-3 py-2 border border-slate-200 dark:border-slate-800 rounded-xl bg-slate-50 dark:bg-slate-950 text-xs focus:outline-none"
-                    placeholder="Ex: Friboi Carnes"
+                    placeholder="Ex: Ambev"
                     required
                   />
                 </div>
