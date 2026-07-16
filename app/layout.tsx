@@ -8,8 +8,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Distribuidora Dona Budega - PDV & Gestão",
-  description: "Sistema integrado de Ponto de Venda (PDV), controle de estoque, clientes e contas a pagar para a Distribuidora Dona Budega.",
+  title: "Distribuidora Dona Bodega - PDV & Gestão",
+  description: "Sistema integrado de Ponto de Venda (PDV), controle de estoque, clientes e contas a pagar para a Distribuidora Dona Bodega.",
 };
 
 export default function RootLayout({

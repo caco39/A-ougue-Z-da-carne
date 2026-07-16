@@ -95,7 +95,7 @@ export default function Home() {
               {/* Logo / Header */}
               <div className="text-center space-y-3">
                 <h1 className="text-2xl font-black tracking-tight text-stone-900 uppercase">
-                  Distribuidora Dona Budega
+                  Distribuidora Dona Bodega
                 </h1>
                 <p className="text-stone-500 text-xs">
                   Acesse sua conta para gerenciar o PDV e as finanças.
@@ -185,7 +185,7 @@ export default function Home() {
               <div className="pb-4 border-b border-stone-200">
                 <div>
                   <h2 className="font-extrabold text-base text-stone-900 tracking-tight leading-tight uppercase">
-                    Distribuidora Dona Budega
+                    Distribuidora Dona Bodega
                   </h2>
                   <span className="text-[10px] text-emerald-600 font-medium flex items-center mt-1">
                     <Sparkles className="h-2.5 w-2.5 mr-0.5" /> Supabase Conectado
@@ -241,7 +241,7 @@ export default function Home() {
             <header className="md:hidden bg-white border-b border-stone-200 p-4 flex items-center justify-between">
               <div className="flex items-center space-x-2.5">
                 <h2 className="font-extrabold text-sm text-stone-900 tracking-tight leading-tight uppercase">
-                  Distribuidora Dona Budega
+                  Distribuidora Dona Bodega
                 </h2>
               </div>
 

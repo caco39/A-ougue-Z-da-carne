@@ -1,4 +1,4 @@
--- Migration: Create Initial Schema for Distribuidora Dona Budega
+-- Migration: Create Initial Schema for Distribuidora Dona Bodega
 -- Created At: 2026-07-10
 
 -- -----------------------------------------------------------------------------

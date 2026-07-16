@@ -76,7 +76,7 @@ export default function DashboardView({ onNavigate }: DashboardProps) {
             Painel de Controle
           </span>
           <h1 className="text-4xl font-black text-stone-100 tracking-tight uppercase">
-            Distribuidora Dona Budega
+            Distribuidora Dona Bodega
           </h1>
           <p className="text-stone-400 text-sm leading-relaxed">
             Bem-vindo ao seu painel de gestão integrada. Acompanhe suas vendas em tempo real, gerencie o estoque, clientes e controle suas contas a pagar de forma automatizada e integrada ao Supabase.

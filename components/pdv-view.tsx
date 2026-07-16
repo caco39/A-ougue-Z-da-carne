@@ -510,7 +510,7 @@ export default function PdvView() {
             className="bg-white text-stone-900 p-6 rounded-2xl w-full max-w-sm shadow-2xl relative overflow-hidden font-mono text-xs space-y-4"
           >
             <div className="text-center space-y-1 border-b border-dashed border-stone-300 pb-4">
-              <h4 className="font-black text-sm uppercase">Distribuidora Dona Budega</h4>
+              <h4 className="font-black text-sm uppercase">Distribuidora Dona Bodega</h4>
               <p className="text-[10px] text-stone-500">Rua das Américas, 452 - Centro</p>
               <p className="text-[10px] text-stone-500">CNPJ: 12.345.678/0001-99</p>
             </div>
