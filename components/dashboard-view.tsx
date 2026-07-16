@@ -5,7 +5,6 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { TrendingUp, Users, AlertTriangle, FileText, ShoppingBag, ArrowUpRight, CheckCircle, Calendar } from "lucide-react";
 import { Product, Customer, ContaPagar, Sale, db } from "../lib/db";
-import logoImg from "@/src/assets/images/ze_da_carne_logo_1783698673060.jpg";
 
 interface DashboardProps {
   onNavigate: (tab: string) => void;
@@ -77,22 +76,13 @@ export default function DashboardView({ onNavigate }: DashboardProps) {
             Painel de Controle
           </span>
           <h1 className="text-4xl font-black text-stone-100 tracking-tight uppercase">
-            Zé da Carne
+            Distribuidora Dona Budega
           </h1>
           <p className="text-stone-400 text-sm leading-relaxed">
             Bem-vindo ao seu painel de gestão integrada. Acompanhe suas vendas em tempo real, gerencie o estoque, clientes e controle suas contas a pagar de forma automatizada e integrada ao Supabase.
           </p>
         </div>
-        <div className="relative z-10 w-24 h-24 md:w-32 md:h-32 bg-stone-950 border border-stone-850 rounded-3xl overflow-hidden shadow-2xl flex-shrink-0">
-          <Image
-            src={logoImg}
-            alt="Zé da Carne"
-            fill
-            sizes="(max-width: 768px) 96px, 128px"
-            className="object-cover"
-            referrerPolicy="no-referrer"
-          />
-        </div>
+
         <div className="absolute top-0 right-0 w-80 h-full bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-rose-900/15 via-stone-900/0 to-stone-900/0 pointer-events-none" />
       </motion.div>
 

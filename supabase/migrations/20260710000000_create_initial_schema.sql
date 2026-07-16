@@ -1,4 +1,4 @@
--- Migration: Create Initial Schema for Zé da Carne
+-- Migration: Create Initial Schema for Distribuidora Dona Budega
 -- Created At: 2026-07-10
 
 -- -----------------------------------------------------------------------------

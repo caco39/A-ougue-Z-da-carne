@@ -14,7 +14,6 @@ import PdvView from "../components/pdv-view";
 import ProductsView from "../components/products-view";
 import CustomersView from "../components/customers-view";
 import ContasPagarView from "../components/contas-pagar-view";
-import logoImg from "@/src/assets/images/ze_da_carne_logo_1783698673060.jpg";
 
 export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
@@ -95,18 +94,8 @@ export default function Home() {
             >
               {/* Logo / Header */}
               <div className="text-center space-y-3">
-                <div className="mx-auto w-24 h-24 bg-stone-100 border border-stone-200 rounded-2xl overflow-hidden flex items-center justify-center relative shadow-inner">
-                  <Image
-                    src={logoImg}
-                    alt="Zé da Carne"
-                    fill
-                    sizes="96px"
-                    className="object-cover"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
                 <h1 className="text-2xl font-black tracking-tight text-stone-900 uppercase">
-                  Zé da Carne
+                  Distribuidora Dona Budega
                 </h1>
                 <p className="text-stone-500 text-xs">
                   Acesse sua conta para gerenciar o PDV e as finanças.
@@ -193,22 +182,12 @@ export default function Home() {
             {/* Sidebar (Desktop) */}
             <aside id="sidebar" className="hidden md:flex flex-col w-64 bg-white border-r border-stone-200 p-5 space-y-6 h-full select-none">
                {/* Brand Header */}
-              <div className="flex items-center space-x-3 pb-4 border-b border-stone-200">
-                <div className="w-12 h-12 bg-stone-50 border border-stone-200 rounded-xl overflow-hidden flex items-center justify-center relative shrink-0">
-                  <Image
-                    src={logoImg}
-                    alt="Zé da Carne"
-                    fill
-                    sizes="48px"
-                    className="object-cover"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
+              <div className="pb-4 border-b border-stone-200">
                 <div>
-                  <h2 className="font-extrabold text-sm text-stone-900 tracking-tight leading-tight uppercase">
-                    Zé da Carne
+                  <h2 className="font-extrabold text-base text-stone-900 tracking-tight leading-tight uppercase">
+                    Distribuidora Dona Budega
                   </h2>
-                  <span className="text-[10px] text-emerald-600 font-medium flex items-center">
+                  <span className="text-[10px] text-emerald-600 font-medium flex items-center mt-1">
                     <Sparkles className="h-2.5 w-2.5 mr-0.5" /> Supabase Conectado
                   </span>
                 </div>
@@ -261,18 +240,8 @@ export default function Home() {
             {/* Topbar (Mobile) */}
             <header className="md:hidden bg-white border-b border-stone-200 p-4 flex items-center justify-between">
               <div className="flex items-center space-x-2.5">
-                <div className="w-10 h-10 bg-stone-50 border border-stone-200 rounded-lg overflow-hidden flex items-center justify-center relative shrink-0">
-                  <Image
-                    src={logoImg}
-                    alt="Zé da Carne"
-                    fill
-                    sizes="40px"
-                    className="object-cover"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
                 <h2 className="font-extrabold text-sm text-stone-900 tracking-tight leading-tight uppercase">
-                  Zé da Carne
+                  Distribuidora Dona Budega
                 </h2>
               </div>
 
