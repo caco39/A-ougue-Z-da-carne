@@ -170,9 +170,9 @@ export class DB {
   async getProducts(): Promise<Product[]> {
     try {
       const { data, error } = await supabase.from("produtos").select("*").order("nome");
-      if (error) throw error;
-      if (data && data.length > 0) {
-        // Map fields if necessary
+      if (!error && data && data.length > 0) {
+        // Cache locally for offline/quick access
+        this.saveLocal("acougue_products", data as Product[]);
         return data as Product[];
       }
     } catch (err) {
@@ -187,55 +187,65 @@ export class DB {
       id: "prod_" + Math.random().toString(36).substring(2, 9)
     };
 
-    try {
-      const { data, error } = await supabase.from("produtos").insert([product]).select();
-      if (error) throw error;
-      if (data && data[0]) {
-        return data[0] as Product;
-      }
-    } catch (err) {
-      console.warn("Supabase product add failed, saving to localStorage:", err);
-    }
-
+    // Always update local storage first so it is available instantly
     const products = this.getLocal<Product>("acougue_products");
     products.push(newProduct);
     this.saveLocal("acougue_products", products);
+
+    try {
+      const { data, error } = await supabase.from("produtos").insert([product]).select();
+      if (!error && data && data[0]) {
+        const saved = data[0] as Product;
+        const idx = products.findIndex(p => p.id === newProduct.id);
+        if (idx !== -1) {
+          products[idx] = saved;
+          this.saveLocal("acougue_products", products);
+        }
+        return saved;
+      }
+    } catch (err) {
+      console.warn("Supabase product add failed, saved locally:", err);
+    }
+
     return newProduct;
   }
 
   async updateProduct(id: string, productUpdate: Partial<Product>): Promise<Product | null> {
-    try {
-      const { data, error } = await supabase.from("produtos").update(productUpdate).eq("id", id).select();
-      if (error) throw error;
-      if (data && data[0]) {
-        return data[0] as Product;
-      }
-    } catch (err) {
-      console.warn("Supabase product update failed, saving to localStorage:", err);
-    }
-
+    // 1. Always update local storage immediately
     const products = this.getLocal<Product>("acougue_products");
     const index = products.findIndex(p => p.id === id);
+    let updatedLocal: Product | null = null;
     if (index !== -1) {
       products[index] = { ...products[index], ...productUpdate };
       this.saveLocal("acougue_products", products);
-      return products[index];
+      updatedLocal = products[index];
     }
-    return null;
+
+    // 2. Also sync with Supabase
+    try {
+      const { data, error } = await supabase.from("produtos").update(productUpdate).eq("id", id).select();
+      if (!error && data && data[0]) {
+        return data[0] as Product;
+      }
+    } catch (err) {
+      console.warn("Supabase product update failed, cached locally:", err);
+    }
+
+    return updatedLocal;
   }
 
   async deleteProduct(id: string): Promise<boolean> {
-    try {
-      const { error } = await supabase.from("produtos").delete().eq("id", id);
-      if (error) throw error;
-      return true;
-    } catch (err) {
-      console.warn("Supabase product delete failed, using localStorage fallback:", err);
-    }
-
     const products = this.getLocal<Product>("acougue_products");
     const filtered = products.filter(p => p.id !== id);
     this.saveLocal("acougue_products", filtered);
+
+    try {
+      const { error } = await supabase.from("produtos").delete().eq("id", id);
+      if (error) console.warn("Supabase product delete failed:", error);
+    } catch (err) {
+      console.warn("Supabase product delete failed, cached locally:", err);
+    }
+
     return true;
   }
 
